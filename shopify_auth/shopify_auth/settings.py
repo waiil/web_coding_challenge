@@ -25,7 +25,7 @@ SECRET_KEY = 'ho_a_^yp7po(d#8wsf&9%jdw1o-f2t7^meg8gg9!k%&5namwu+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mama_cas'
 ]
 
 MIDDLEWARE = [
@@ -118,3 +119,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# CAS SERVICE
+
+MAMA_CAS_SERVICES = [
+    {
+        'SERVICE': 'http://127.0.0.1:8000',
+        'CALLBACKS': [
+            'mama_cas.callbacks.user_name_attributes',
+        ],
+        'LOGOUT_ALLOW': True,
+        'LOGOUT_URL': 'http://127.0.0.1:8000/accounts/callback',
+    }
+ ]
+
+MAMA_CAS_ENABLE_SINGLE_SIGN_OUT = True
