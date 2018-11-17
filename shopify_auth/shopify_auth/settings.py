@@ -15,6 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
@@ -24,6 +25,7 @@ SECRET_KEY = 'ho_a_^yp7po(d#8wsf&9%jdw1o-f2t7^meg8gg9!k%&5namwu+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -37,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'mama_cas'
+    'users',
+    'mama_cas',
+
 ]
 
 MIDDLEWARE = [
@@ -55,7 +59,7 @@ ROOT_URLCONF = 'shopify_auth.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['%s/templates/' % BASE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,7 +122,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+MEDIA_ROOT = BASE_DIR + '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+
 
 # CAS SERVICE
 
@@ -134,3 +141,10 @@ MAMA_CAS_SERVICES = [
  ]
 
 MAMA_CAS_ENABLE_SINGLE_SIGN_OUT = True
+
+# BACKEND AUTH
+AUTH_USER_MODEL = 'users.ShopifyUser'
+# AUTHENTICATION_BACKENDS = (
+#   'users.views.EmailBackend',
+# )
+# AUTHENTICATION_BACKENDS = ['']
