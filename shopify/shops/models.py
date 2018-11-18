@@ -19,4 +19,13 @@ class Shop(models.Model):
     icon = models.CharField(blank=True, null=True, verbose_name=_(u'Shop Icon'), max_length=100)
 
     def __unicode__(self):
-        return "%s %s" % (self.longitude, self.latitude)
+        return "%s %s %s" % (self.name, self.longitude, self.latitude)
+
+
+class DislikedShop(models.Model):
+    shop = models.ForeignKey(Shop, verbose_name=_(u'Shop'))
+    user = models.CharField(verbose_name=_(u'User'), max_length=255)
+    date = models.DateTimeField(auto_now=True)
+
+    def __unicode__(self):
+        return "%s %s %s" % (self.shop, self.user, self.date)

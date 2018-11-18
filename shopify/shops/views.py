@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from django.contrib.auth.decorators import login_required
 from .utils import get_public_ip, get_location, save_shops
-from .models import Shop
+from .models import Shop, DislikedShop
 import threading
 from django.shortcuts import render
 import json
@@ -46,13 +46,27 @@ def home(request):
 
 @login_required(login_url="accounts/login")
 def like_shop(request):
-    print "in fun"
     google_shop_id = request.GET.get('id', None)
     if not google_shop_id:
         return JsonResponse({"success": False, "message": "id required!"}, status=HTTP_400_BAD_REQUEST)
     liked_shop = Shop.objects.filter(google_id=google_shop_id).first()
     if not liked_shop:
-        return JsonResponse({"success": False, "message": "id required!"}, status=HTTP_404_NOT_FOUND)
+        return JsonResponse({"success": False, "message": "shop not found!"}, status=HTTP_404_NOT_FOUND)
     liked_shop.favoris_of = request.user.username
     liked_shop.save()
     return JsonResponse({"success": True, "message": "shop added to your favoris"}, status=HTTP_200_OK)
+
+
+@login_required(login_url="accounts/login")
+def dislike_shop(request):
+    google_shop_id = request.GET.get('id', None)
+    if not google_shop_id:
+        return JsonResponse({"success": False, "message": "id required!"}, status=HTTP_400_BAD_REQUEST)
+    shop = Shop.objects.filter(google_id=google_shop_id).first()
+    if not shop:
+        return JsonResponse({"success": False, "message": "shop not found!"}, status=HTTP_404_NOT_FOUND)
+    disliked_shop = DislikedShop.objects.filter(user=request.user.username, shop=shop)
+    if not disliked_shop:
+        disliked_shop = DislikedShop.objects.create(shop=shop, user=request.user.username)
+    disliked_shop.save()
+    return JsonResponse({"success": True, "message": "shop successfully removed from nearby shops"}, status=HTTP_200_OK)
