@@ -13,9 +13,11 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
 import django_cas_ng.views as cas_views
+from django.core.urlresolvers import reverse_lazy
+from django.views.generic import RedirectView
 from shops.views import home
 
 urlpatterns = [
@@ -23,5 +25,7 @@ urlpatterns = [
     url(r'^accounts/login$', cas_views.login, name='cas_ng_login'),
     url(r'^accounts/logout$', cas_views.logout, name='cas_ng_logout'),
     url(r'^accounts/callback$', cas_views.callback, name='cas_ng_proxy_callback'),
-    url(r'', home, name='index')
+    url(r'shops/', include('shops.urls')),
+    url(r'', RedirectView.as_view(url=reverse_lazy('index'), permanent=True)),
 ]
+

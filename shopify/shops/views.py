@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 import googlemaps
 from django.conf import settings
 from django.http import JsonResponse
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 from django.contrib.auth.decorators import login_required
 from .utils import get_public_ip, get_location, save_shops
 from .models import Shop
@@ -34,9 +35,24 @@ def home(request):
         latitude=place['geometry']['location']['lat'],
         longitude=place['geometry']['location']['lng'],
         google_id=place['place_id'],
-        address=place['vicinity']
+        address=place['vicinity'],
+        icon = place['icon']
 
     ) for place in places['results']]
     threading.Thread(target=save_shops, args=shops).start()
-    return render(request, template_name='index.html', status=200)
+    return render(request, template_name='index.html', status=200, context={'shops': shops})
     # return JsonResponse({'places':places,"ip":request.session['ip'], 'location': request.session['location']})
+
+
+@login_required(login_url="accounts/login")
+def like_shop(request):
+    print "in fun"
+    google_shop_id = request.GET.get('id', None)
+    if not google_shop_id:
+        return JsonResponse({"success": False, "message": "id required!"}, status=HTTP_400_BAD_REQUEST)
+    liked_shop = Shop.objects.filter(google_id=google_shop_id).first()
+    if not liked_shop:
+        return JsonResponse({"success": False, "message": "id required!"}, status=HTTP_404_NOT_FOUND)
+    liked_shop.favoris_of = request.user.username
+    liked_shop.save()
+    return JsonResponse({"success": True, "message": "shop added to your favoris"}, status=HTTP_200_OK)

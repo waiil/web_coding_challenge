@@ -8,7 +8,7 @@ from django.db import models
 
 
 class Shop(models.Model):
-    google_id = models.CharField(verbose_name=_('Google ID'), max_length=255)
+    google_id = models.CharField(verbose_name=_('Google ID'), max_length=255, unique=True)
     name = models.CharField(verbose_name=_(u'Shop name'), max_length=255)
     rating = models.FloatField(verbose_name=_('Rating'))
     address = models.CharField(verbose_name=_('Shop Address'), max_length=255)
@@ -16,6 +16,7 @@ class Shop(models.Model):
     latitude = models.FloatField(verbose_name=_(u'Latitude'))
     # TO DO : UPDATE TO ARRAY FIELD
     favoris_of = models.CharField(blank=True, null=True, verbose_name=_(u'Favoris of'), max_length=255)
+    icon = models.CharField(blank=True, null=True, verbose_name=_(u'Shop Icon'), max_length=100)
 
     def __unicode__(self):
         return "%s %s" % (self.longitude, self.latitude)
