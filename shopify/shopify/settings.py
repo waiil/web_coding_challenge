@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_cas_ng',
+    'rest_framework',
+    'googlemaps',
+    'shops'
 ]
 
 MIDDLEWARE = [
@@ -60,7 +63,7 @@ ROOT_URLCONF = 'shopify.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['%s/templates/' % BASE_DIR],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -123,9 +126,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+STATICFILES_DIRS = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # CAS SERVER
 
 CAS_SERVER_URL = 'http://127.0.0.1:8080'
 CAS_VERSION = '3'
+
+# API KEYS
+
+GOOGLE_API_KEY = 'AIzaSyBbDmvDLeIZucbM2x-TR-0CzmHtxnJ0pfU'
+IP_STACK_KEY = 'ea4d969c251b6521df53ca2e21ccd7e7'
+
+# GOOGLE PLACES TYPE
+PLACES_TYPE = ['bakery', 'bicycle_store', 'book_store', 'cafe', 'clothing_store', 'convenience_store',
+               'department_store', 'electronics_store', 'furniture_store', 'home_goods_store', 'pet_store',
+               'shoe_store']

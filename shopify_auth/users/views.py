@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-from mama_cas.views import LoginView
+from mama_cas.views import LoginView as CasLoginView
 from .forms import LoginForm, UserCreationForm
 from django.views.generic.edit import FormView
 from django.contrib import messages
@@ -17,6 +17,6 @@ class Signup(FormView):
         return super(Signup, self).form_valid(form)
 
 
-class LoginView(LoginView):
+class LoginView(CasLoginView):
     form_class = LoginForm
 

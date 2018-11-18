@@ -16,10 +16,12 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 import django_cas_ng.views as cas_views
+from shops.views import home
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/login$', cas_views.login, name='cas_ng_login'),
     url(r'^accounts/logout$', cas_views.logout, name='cas_ng_logout'),
     url(r'^accounts/callback$', cas_views.callback, name='cas_ng_proxy_callback'),
+    url(r'', home, name='index')
 ]
