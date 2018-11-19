@@ -2,10 +2,10 @@
 {% block content %}
     {% for shop in shops%}
         <div class="col-sm-5" style="padding-bottom: 20px;width:30%">
-            <ul class="well">
-                <div style="padding-left:30%;">{{shop.name}}</div>
-                <div style="padding-left:30%;"><img src="{{shop.icon}}"></div>
-                <div style="padding-left:25%;padding-top: 6%;">
+            <ul class="well text-center">
+                <div title="{{shop.name}}">{{shop.get_name}}</div>
+                <div><img src="{{shop.icon}}"></div>
+                <div style="padding-top: 6%;">
                     <button onclick="dislike(this.id)" url="{% url 'dislike_shop' %}" class="dislike btn btn-danger" type="button" id="{{shop.google_id}}">Dislike</button>
                     <button onclick="like(this.id)" url="{% url 'like_shop' %}" class="like btn btn-success" type="button" id="{{shop.google_id}}">Like</button>
                 </div>

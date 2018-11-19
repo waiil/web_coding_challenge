@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
-
+from constants import MAX_LENGTH
 # Create your models here.
 
 
@@ -20,6 +20,12 @@ class Shop(models.Model):
 
     def __unicode__(self):
         return "%s %s %s" % (self.name, self.longitude, self.latitude)
+
+    def get_name(self):
+        name = self.name[:MAX_LENGTH]
+        if self.name != name:
+            name += '...'
+        return name
 
 
 class DislikedShop(models.Model):

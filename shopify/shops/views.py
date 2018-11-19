@@ -43,9 +43,7 @@ def home(request):
     # storing new shops in database
     threading.Thread(target=save_shops, args=shops).start()
     filtred_shops = shops_to_display(shops, request.user.username)
-    print "new len ", len(filtred_shops)
     return render(request, template_name='index.html', status=200, context={'shops': filtred_shops})
-    # return JsonResponse({'places':places,"ip":request.session['ip'], 'location': request.session['location']})
 
 
 @login_required(login_url=LOGIN_URL)
