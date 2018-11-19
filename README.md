@@ -21,5 +21,7 @@ The project follow the microservices architecture: we have two microservices, sh
 
 ## TODO
 ```
-   Containerize the whole project
+	- Containerize the whole project
+	- Add Front-End microservice with React and Reduce
+	- Use Celery for async jobs
 ```
