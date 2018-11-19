@@ -2,12 +2,15 @@
 
 ## project dependencies 
 ```
-docker
+- docker 
+- GOOGLE_API_KEY
+- IP_STACK_KEY
 ```
 
 ## deploy script in dev mod
 ```
-sudo sh dev_deploy_project.sh
+- Update the value of GOOGLE API, IP STACK KEYS in the settings file from Shopify microservice
+- sudo sh dev_deploy_project.sh
 ```
 
 ## project architecture
