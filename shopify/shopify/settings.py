@@ -84,8 +84,12 @@ WSGI_APPLICATION = 'shopify.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'shopify_db',
+        'USER': 'shopify_user',
+        'PASSWORD': 'kljpass6hd',
+        'HOST': '127.0.0.1',
+        'PORT': '5000',
     }
 }
 
@@ -114,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Paris'
 
 USE_I18N = True
 
@@ -136,7 +140,11 @@ CAS_VERSION = '3'
 
 # API KEYS
 
-GOOGLE_API_KEY = 'AIzaSyDldpzFMoc2OgM6NPyidubXMzO7z0S-beY'
-IP_STACK_KEY = '068ef1fcd4553cdc3ac9bce09d62798b'
+GOOGLE_API_KEY = 'AIzaSyD0TgjWvP7sQ7fFGrPBusNRlSemPt7UqEw'
+IP_STACK_KEY = '5776d163d2aa9f661edc221172f55e8d'
 
 
+try:
+    from local_settings import *
+except ImportError:
+    pass

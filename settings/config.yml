@@ -1,0 +1,14 @@
+shopify:
+  database_name: shopify_db
+  database_user: shopify_user
+  database_password: kljpass6hd
+  database_host: 127.0.0.1
+  database_port: 5000
+
+
+shopify_auth:
+  database_name: shopify_auth_db
+  database_user: shopify_auth_user
+  database_password: sd!rpass45
+  database_host: 127.0.0.1
+  database_port: 5001

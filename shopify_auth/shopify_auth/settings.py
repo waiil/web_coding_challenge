@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'shopify_auth.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'shopify_auth_db',
+        'USER': 'shopify_auth_user',
+        'PASSWORD': 'sd!rpass45',
+        'HOST': '127.0.0.1',
+        'PORT': '5001',
     }
 }
 
@@ -123,7 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 MEDIA_ROOT = BASE_DIR + '/media/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 STATIC_URL = '/static/'
 
 
@@ -144,7 +148,3 @@ MAMA_CAS_ENABLE_SINGLE_SIGN_OUT = True
 
 # BACKEND AUTH
 AUTH_USER_MODEL = 'users.ShopifyUser'
-# AUTHENTICATION_BACKENDS = (
-#   'users.views.EmailBackend',
-# )
-# AUTHENTICATION_BACKENDS = ['']
